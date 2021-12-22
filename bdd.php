@@ -1,3 +1,5 @@
 <?php 
- $bdd = new PDO('mysql:host=127.0.0.1;dbname=livreor','root','')
+ $bdd = new PDO('mysql:host=127.0.0.1;dbname=livreor','root','');
+
+
 ?>
