@@ -4,19 +4,23 @@ require "bdd.php";
 require_once 'class/message.php';
 require_once 'class/guestbook.php';
 $errors = null;
+$succes = false;
+$guestbook = new guestbook(__DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'messages');
+
 if (isset($_POST['username'], $_POST['message'])) {
     $message = new Message($_POST['username'], $_POST['message']);
     if ($message->isValid()) 
     {
-        $guestbook = new guestbook(__DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'messages');
         $guestbook-> addmessage($message);
+        $success = true ;
+        $_POST = [];
 
     } else {
         $errors = $message->getErrors();
     }
 }
 
-var_dump($errors);
+        $messages = $guestbook->getMessages();
 
 $title = "Livre d'or";
 
@@ -31,6 +35,12 @@ require 'header.php';
 
         <div class="alert alert-danger">
             Formulaire invalide
+        </div>
+    <?php endif ?>
+    <?php if (!empty($sucess)) : ?>
+
+        <div class="alert alert-success">
+            Merci pour votre message !
         </div>
     <?php endif ?>
 
